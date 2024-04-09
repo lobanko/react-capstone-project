@@ -1,7 +1,8 @@
 
-import {Fragment, useState} from "react";
+import {Fragment, useReducer, useState} from "react";
 import Header from "./conponents/Header";
 import './BookingPage.css';
+import {fetchAPI} from "./utils/fakeApi";
 
 
 function BookingPage() {
@@ -9,10 +10,25 @@ function BookingPage() {
     const [time, setTime] = useState("17:00");
     const [numberOfGuests, setNumberOfGuests] = useState(1);
     const [occasion, setOccasion] = useState("");
+
+    const updateTimes = (availableTimes, date) => {
+        const response = fetchAPI(new Date(date));
+        return response.length !== 0 ? response : availableTimes;
+    };
+
+    const initializeTimes = (initialAvailableTimes) => [
+        ...initialAvailableTimes,
+        ...fetchAPI(new Date()),
+    ];
+
+    const [availableTimes, dispatchOnDateChange] = useReducer(
+        updateTimes,
+        [],
+        initializeTimes
+    );
     const dateChange = (event) => {
         setDate(event.target.value);
-        const dmlo = fetchAPI(event.target.value);
-        console.log(dmlo);
+        dispatchOnDateChange(event.target.value);
     };
     const timeChange = (event) => {
         setTime(event.target.value);
@@ -34,6 +50,7 @@ function BookingPage() {
         e.preventDefault();
         alert("Booking created!");
     };
+
     return (
         <>
             <Header/>
@@ -44,13 +61,9 @@ function BookingPage() {
                 <select id="res-time "
                             value={time}
                             onChange={timeChange}
-                >
-                        <option>17:00</option>
-                        <option>18:00</option>
-                        <option>19:00</option>
-                        <option>20:00</option>
-                        <option>21:00</option>
-                        <option>22:00</option>
+                >       {availableTimes.map((time) => (
+                    <option key={time}>{time}</option>
+                ))}
                 </select>
                 <label htmlFor="guests">Number of guests</label>
                 <input type="number" placeholder="1" min="1" max="10" id="guests" value={numberOfGuests} onChange={numberOfGuestsChange}/>
