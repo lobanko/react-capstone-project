@@ -4,3 +4,26 @@
     display: flex;
     flex-direction: column;
 }
+
+.form-row {
+    height: 40px;
+    padding-bottom: 20px;
+    display: flex;
+}
+
+.form-row label {
+    font-size: 20px;
+    color: #495E57;
+    width: 200px;
+}
+
+.label-wrapper {
+    width: 200px;
+}
+
+.form-row input {
+    width: 80px;
+}
+.form-row select {
+    width: 85px;
+}

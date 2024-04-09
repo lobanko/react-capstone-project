@@ -3,6 +3,7 @@ import {Fragment, useReducer, useState} from "react";
 import Header from "./conponents/Header";
 import './BookingPage.css';
 import {fetchAPI} from "./utils/fakeApi";
+import Button from "./conponents/button/button";
 
 
 function BookingPage() {
@@ -33,8 +34,8 @@ function BookingPage() {
     const timeChange = (event) => {
         setTime(event.target.value);
     };
-    const numberOfGuestsChange = (value) => {
-        setNumberOfGuests(value)
+    const numberOfGuestsChange = (event) => {
+        setNumberOfGuests(event.target.value)
     };
     const occasionChange = (value) => {
         setNumberOfGuests(value)
@@ -54,25 +55,41 @@ function BookingPage() {
     return (
         <>
             <Header/>
+
             <form className="booking-form" onSubmit={handleSubmit}>
-                <label htmlFor="res-date">Choose date</label>
-                <input type="date" id="res-date" value={date} onChange={dateChange}/>
-                <label htmlFor="res-time">Choose time</label>
-                <select id="res-time "
+                <h2>book a table</h2>
+                <div className="form-row">
+                    <div className="label-wrapper"><label htmlFor="res-date">Choose date</label></div>
+                    <input type="date" id="res-date" value={date} onChange={dateChange}/>
+                </div>
+                <div className="form-row">
+                    <div className="label-wrapper"><label htmlFor="res-time">Choose time</label></div>
+                        <select id="res-time "
                             value={time}
                             onChange={timeChange}
-                >       {availableTimes.map((time) => (
-                    <option key={time}>{time}</option>
-                ))}
-                </select>
-                <label htmlFor="guests">Number of guests</label>
-                <input type="number" placeholder="1" min="1" max="10" id="guests" value={numberOfGuests} onChange={numberOfGuestsChange}/>
-                <label htmlFor="occasion">Occasion</label>
-                <select id="occasion" value={occasion} onChange={occasionChange}>
-                    <option>Birthday</option>
-                    <option>Anniversary</option>
-                </select>
-                <input type="submit" value="Make Your reservation" disabled={!getIsFormValid()}/>
+                    >       {availableTimes.map((time) => (
+                        <option key={time}>{time}</option>
+                    ))}
+                    </select>
+                </div>
+                <div className="form-row">
+                    <div className="label-wrapper"><label htmlFor="guests">Number of guests</label></div>
+                        <input type="number" placeholder="1" min="1" max="10" id="guests" value={numberOfGuests}
+                           onChange={numberOfGuestsChange}/>
+                </div>
+                <div className="form-row">
+                    <div className="label-wrapper"><label htmlFor="occasion">Occasion</label></div>
+                        <select id="occasion" value={occasion} onChange={occasionChange}>
+                        <option>Birthday</option>
+                        <option>Anniversary</option>
+                    </select>
+                </div>
+                <Button
+                    title="Make Your reservation"
+                    type="submit"
+                    onClick={handleSubmit}
+                    disabled={!getIsFormValid()}
+                />
             </form>
         </>
 

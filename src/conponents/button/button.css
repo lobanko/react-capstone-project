@@ -1,0 +1,24 @@
+.button {
+    background: #f4ce14;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    color: #495e57;
+    font-weight: bold;
+    border: 0.1875rem solid #f4ce14;
+    font-size: 1em;
+}
+
+.button:hover {
+    background: #f4ce14;
+    color: #495e57;
+    border: 0.1875rem solid #f4ce14;
+    cursor: pointer;
+}
+
+.button:disabled {
+    background: #f4ce14;
+    color: #495e57;
+    border: 0.1875rem solid #f4ce14;
+    cursor: not-allowed;
+}
+
