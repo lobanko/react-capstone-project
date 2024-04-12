@@ -1,9 +1,10 @@
 
 import {Fragment, useReducer, useState} from "react";
-import Header from "./conponents/Header";
+import Header from "./components/Header";
 import './BookingPage.css';
 import {fetchAPI} from "./utils/fakeApi";
-import Button from "./conponents/button/button";
+import Button from "./components/button/button";
+import ErrorMessage from "./components/error_message/error-message";
 
 
 function BookingPage() {
@@ -40,17 +41,29 @@ function BookingPage() {
     const occasionChange = (value) => {
         setNumberOfGuests(value)
     }
+
+    const isDateValid = () => {
+        return date >= (new Date().toISOString().split("T")[0]);
+    }
+
+    const isNumberOfGuestsValid = () => {
+        return 1<= numberOfGuests &&  numberOfGuests<11
+    }
     const getIsFormValid = () => {
         return (
             date &&
+            isDateValid() &&
             time &&
-            numberOfGuests
+            numberOfGuests &&
+            isNumberOfGuestsValid()
         );
     };
     const handleSubmit = (e) => {
         e.preventDefault();
         alert("Booking created!");
     };
+
+    console.log('DMLO', numberOfGuests);
 
     return (
         <>
@@ -61,6 +74,9 @@ function BookingPage() {
                 <div className="form-row">
                     <div className="label-wrapper"><label htmlFor="res-date">Choose date</label></div>
                     <input type="date" id="res-date" value={date} onChange={dateChange}/>
+                    {!isDateValid() ? (
+                        <ErrorMessage text="date should be in future" />
+                    ) : null}
                 </div>
                 <div className="form-row">
                     <div className="label-wrapper"><label htmlFor="res-time">Choose time</label></div>
@@ -74,8 +90,11 @@ function BookingPage() {
                 </div>
                 <div className="form-row">
                     <div className="label-wrapper"><label htmlFor="guests">Number of guests</label></div>
-                        <input type="number" placeholder="1" min="1" max="10" id="guests" value={numberOfGuests}
+                    <input type="number" placeholder="1" min="1" max="10" id="guests" value={numberOfGuests}
                            onChange={numberOfGuestsChange}/>
+                    {!isNumberOfGuestsValid() ? (
+                        <ErrorMessage text="number of suests should be between 1 and 10" />
+                    ) : null}
                 </div>
                 <div className="form-row">
                     <div className="label-wrapper"><label htmlFor="occasion">Occasion</label></div>

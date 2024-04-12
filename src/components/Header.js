@@ -1,10 +1,11 @@
 
+import logo from '../assets/Logo.svg'
 
 
 function Header() {
     return (
         <div className="top">
-            <header>LOG</header>
+            <img src={logo} alt="logo"/>
             <nav>
                 <ul>
                     <li><a href="/home">Home</a></li>

@@ -15,6 +15,7 @@
     font-size: 20px;
     color: #495E57;
     width: 200px;
+    line-height: 37px;
 }
 
 .label-wrapper {
@@ -22,8 +23,8 @@
 }
 
 .form-row input {
-    width: 80px;
+    width: 160px;
 }
 .form-row select {
-    width: 85px;
+    width: 165px;
 }

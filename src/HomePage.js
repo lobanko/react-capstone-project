@@ -2,9 +2,12 @@ import logo from './logo.svg';
 import restauranfood from './assets/restauranfood.jpg';
 import './HomePage.css';
 import {Fragment} from "react";
-import Header from "./conponents/Header";
+import Header from "./components/Header";
+import Button from "./components/button/button";
+import {useNavigate} from "react-router-dom";
 
 function HomePage() {
+    let navigate = useNavigate();
     return (
         <>
             <meta name="og:title" content="Little lemon restaurant"/>
@@ -21,9 +24,11 @@ function HomePage() {
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                 ut labore et dolore magna aliqua.
                             </div>
-                            <button>
-                                Reserve a Table
-                            </button>
+                            <Button
+                                title="Reserve a Table"
+                                onClick={() => navigate('/book')}
+                            >
+                            </Button>
                         </div>
                         <div className="restauranfood-logo-wrapper">
                             <img className="restauranfood-logo" src={restauranfood} alt="restarauntfood"/>
