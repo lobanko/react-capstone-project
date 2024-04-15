@@ -8,7 +8,7 @@ import ErrorMessage from "./components/error_message/error-message";
 
 
 function BookingPage() {
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState("");
     const [time, setTime] = useState("17:00");
     const [numberOfGuests, setNumberOfGuests] = useState(1);
     const [occasion, setOccasion] = useState("");
@@ -63,8 +63,6 @@ function BookingPage() {
         alert("Booking created!");
     };
 
-    console.log('DMLO', numberOfGuests);
-
     return (
         <>
             <Header/>
@@ -73,7 +71,7 @@ function BookingPage() {
                 <h2>book a table</h2>
                 <div className="form-row">
                     <div className="label-wrapper"><label htmlFor="res-date">Choose date</label></div>
-                    <input type="date" id="res-date" value={date} onChange={dateChange}/>
+                    <input type="date" id="res-date" data-testid="res-date" value={date} onChange={dateChange}/>
                     {!isDateValid() ? (
                         <ErrorMessage text="date should be in future" />
                     ) : null}
@@ -90,7 +88,7 @@ function BookingPage() {
                 </div>
                 <div className="form-row">
                     <div className="label-wrapper"><label htmlFor="guests">Number of guests</label></div>
-                    <input type="number" placeholder="1" min="1" max="10" id="guests" value={numberOfGuests}
+                    <input type="number" placeholder="1" min="1" max="10" id="guests" data-testid="guests" value={numberOfGuests}
                            onChange={numberOfGuestsChange}/>
                     {!isNumberOfGuestsValid() ? (
                         <ErrorMessage text="number of suests should be between 1 and 10" />
